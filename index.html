@@ -6,102 +6,24 @@
     <title>Fukuoka Family Trip Dashboard 2026</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f4f7f6;
-            color: #333;
-            margin: 0;
-            padding: 20px;
-        }
-        .container {
-            max-width: 1200px;
-            margin: auto;
-        }
-        header {
-            text-align: center;
-            padding: 20px 0;
-            background-color: #2c3e50;
-            color: white;
-            border-radius: 8px;
-            margin-bottom: 20px;
-        }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; color: #333; margin: 0; padding: 20px; }
+        .container { max-width: 1200px; margin: auto; }
+        header { text-align: center; padding: 20px 0; background-color: #2c3e50; color: white; border-radius: 8px; margin-bottom: 20px; }
         h1 { margin: 0; font-size: 28px; }
         p { margin: 5px 0 0 0; font-size: 16px; color: #ecf0f1; }
-        
-        .dashboard-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-        
-        @media (max-width: 900px) {
-            .dashboard-grid { grid-template-columns: 1fr; }
-        }
-
-        .card {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
-        
-        #map {
-            height: 650px;
-            border-radius: 8px;
-            z-index: 1;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 14px;
-        }
-        th, td {
-            padding: 12px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-        th {
-            background-color: #3498db;
-            color: white;
-            position: sticky;
-            top: 0;
-            z-index: 2;
-        }
-        .day-row {
-            background-color: #ecf0f1;
-            font-weight: bold;
-            color: #2c3e50;
-        }
-        .nap-time {
-            color: #e67e22;
-            font-weight: bold;
-        }
-        /* 新增：可點擊景點的樣式 */
-        .clickable {
-            color: #2980b9;
-            font-weight: bold;
-            cursor: pointer;
-            text-decoration: underline;
-            transition: color 0.2s;
-        }
-        .clickable:hover {
-            color: #e74c3c;
-        }
-        .nav-btn {
-            display: inline-block;
-            margin-top: 10px;
-            padding: 6px 12px;
-            background-color: #4285F4;
-            color: white !important;
-            text-decoration: none;
-            border-radius: 4px;
-            font-weight: bold;
-            font-size: 13px;
-        }
-        .nav-btn:hover {
-            background-color: #3367d6;
-        }
+        .dashboard-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        @media (max-width: 900px) { .dashboard-grid { grid-template-columns: 1fr; } }
+        .card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        #map { height: 650px; border-radius: 8px; z-index: 1; }
+        table { width: 100%; border-collapse: collapse; font-size: 14px; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background-color: #3498db; color: white; position: sticky; top: 0; z-index: 2; }
+        .day-row { background-color: #ecf0f1; font-weight: bold; color: #2c3e50; }
+        .nap-time { color: #e67e22; font-weight: bold; }
+        .clickable { color: #2980b9; font-weight: bold; cursor: pointer; text-decoration: underline; transition: color 0.2s; }
+        .clickable:hover { color: #e74c3c; }
+        .nav-btn { display: inline-block; margin-top: 10px; padding: 6px 12px; background-color: #4285F4; color: white !important; text-decoration: none; border-radius: 4px; font-weight: bold; font-size: 13px; }
+        .nav-btn:hover { background-color: #3367d6; }
     </style>
 </head>
 <body>
@@ -119,7 +41,7 @@
         </div>
 
         <div class="card" style="overflow-y: auto; max-height: 700px;">
-            <h2 style="margin-top: 0; color: #2c3e50;">📅 點擊景點連動地圖與導航</h2>
+            <h2 style="margin-top: 0; color: #2c3e50;">📅 每日時間軸與導航</h2>
             <table>
                 <thead>
                     <tr>
@@ -131,15 +53,15 @@
                 <tbody>
                     <tr class="day-row"><td colspan="3">Day 1: 6月28日 (日) - 抵達與安頓</td></tr>
                     <tr><td>15:30</td><td class="clickable" onclick="focusLocation(0)">🛬 抵達福岡機場 (CX588)</td><td>Fukuoka Airport</td></tr>
-                    <tr><td>16:30</td><td class="clickable" onclick="focusLocation(1)">🚗 租車取車 (Carelife)</td><td>大野城市御笠川 4-12-16</td></tr>
+                    <tr><td>16:30</td><td class="clickable" onclick="focusLocation(1)">🚗 取車 (Carelife)</td><td>大野城市御笠川 4-12-16</td></tr>
                     <tr><td>17:30</td><td class="clickable" onclick="focusLocation(2)">🏨 飯店 Check-in (晴レ吉)</td><td>春吉3-24-2</td></tr>
                     <tr><td>18:30</td><td class="clickable" onclick="focusLocation(3)">🍜 晚餐與逛街 (運河城)</td><td>Canal City Hakata</td></tr>
                     
-                    <tr class="day-row"><td colspan="3">Day 2: 6月29日 (一) - 麵包超人與由布院</td></tr>
-                    <tr><td>10:00</td><td class="clickable" onclick="focusLocation(4)">🦸‍♂️ 麵包超人博物館</td><td>博多 Riverain Mall 5F/6F</td></tr>
-                    <tr><td>12:30</td><td>🍱 福岡市區午餐</td><td></td></tr>
-                    <tr><td class="nap-time">13:30</td><td class="nap-time">🚙 車上午睡時間 (約1.5小)</td><td>開往由布院</td></tr>
-                    <tr><td>15:00</td><td class="clickable" onclick="focusLocation(5)">🦉 由布院 (花卉村/金鱗湖)</td><td>17:00 商店陸續關門</td></tr>
+                    <tr class="day-row"><td colspan="3">Day 2: 6月29日 (一) - 悠閒由布院</td></tr>
+                    <tr><td>10:00</td><td>🛍️ 博多市區採買/悠閒早晨</td><td>準備退房</td></tr>
+                    <tr><td>11:30</td><td>🍱 提早午餐</td><td></td></tr>
+                    <tr><td class="nap-time">12:30</td><td class="nap-time">🚙 車上午睡時間 (約1.5小)</td><td>開往由布院</td></tr>
+                    <tr><td>14:30</td><td class="clickable" onclick="focusLocation(5)">🦉 由布院 (花卉村/金鱗湖)</td><td>時間充裕，17:00 關門</td></tr>
                     <tr><td>17:30</td><td class="clickable" onclick="focusLocation(6)">🏨 飯店 Check-in</td><td>Terrace Midoubaru (別府)</td></tr>
 
                     <tr class="day-row"><td colspan="3">Day 3: 6月30日 (二) - 樂園與地獄溫泉</td></tr>
@@ -161,69 +83,7 @@
                     <tr><td>14:30</td><td class="clickable" onclick="focusLocation(11)">🛝 海之中道海濱公園</td><td>東區西戶崎 18-25</td></tr>
                     <tr><td>18:30</td><td>🍢 中洲屋台 (體驗路邊攤)</td><td>建議早點去避開人潮</td></tr>
 
-                    <tr class="day-row"><td colspan="3">Day 6: 7月3日 (五) - 採買與賦歸</td></tr>
-                    <tr><td>10:00</td><td class="clickable" onclick="focusLocation(12)">🛍️ LaLaport 福岡 採買</td><td>那珂 6丁目23-1 (鋼彈)</td></tr>
-                    <tr><td>13:00</td><td class="clickable" onclick="focusLocation(1)">🚗 還車 (Carelife)</td><td>大野城市御笠川 4-12-16</td></tr>
-                    <tr><td>14:30</td><td class="clickable" onclick="focusLocation(0)">🛫 抵達機場報到 (CX589)</td><td>Fukuoka Airport</td></tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
-
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script>
-    // 初始化地圖
-    var map = L.map('map').setView([33.45, 130.9], 9);
-
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 19,
-        attribution: '© OpenStreetMap contributors'
-    }).addTo(map);
-
-    // 景點資料陣列 (順序對應表格的 focusLocation(index))
-    var locations = [
-        { name: "Fukuoka Airport (福岡機場)", coords: [33.5859, 130.4443], day: "Day 1 & 6" }, /* 0 */
-        { name: "Carelife 租車 (大野城)", coords: [33.5350, 130.4850], day: "Day 1 & 6" }, /* 1 */
-        { name: "晴レ吉 (飯店)", coords: [33.5898, 130.4069], day: "Day 1" }, /* 2 */
-        { name: "Canal City Hakata (運河城)", coords: [33.5898, 130.4107], day: "Day 1" }, /* 3 */
-        { name: "麵包超人博物館", coords: [33.5950, 130.4030], day: "Day 2" }, /* 4 */
-        { name: "由布院 (花卉村/金鱗湖)", coords: [33.2660, 131.3660], day: "Day 2" }, /* 5 */
-        { name: "SEKIYA RESORT Terrace Midoubaru", coords: [33.2800, 131.4720], day: "Day 2 & 3" }, /* 6 */
-        { name: "Harmonyland (和諧樂園)", coords: [33.4000, 131.5460], day: "Day 3" }, /* 7 */
-        { name: "海地獄 (別府地獄)", coords: [33.3150, 131.4690], day: "Day 3" }, /* 8 */
-        { name: "九州自然動物公園", coords: [33.3500, 131.4130], day: "Day 4" }, /* 9 */
-        { name: "櫛田神社", coords: [33.5930, 130.4100], day: "Day 5" }, /* 10 */
-        { name: "海之中道海濱公園", coords: [33.6640, 130.3610], day: "Day 5" }, /* 11 */
-        { name: "LaLaport 福岡", coords: [33.5650, 130.4390], day: "Day 6" } /* 12 */
-    ];
-
-    var markers = []; // 儲存標記的陣列
-
-    // 在地圖上加上標記與導航按鈕
-    locations.forEach(function(loc) {
-        // 建立 Google Maps 路線導航網址 (起點為當下位置，終點為該座標)
-        var googleMapsUrl = "https://www.google.com/maps/dir/?api=1&destination=" + loc.coords[0] + "," + loc.coords[1];
-        
-        var popupContent = "<b>" + loc.name + "</b><br>排程: " + loc.day + 
-                           "<br><a href='" + googleMapsUrl + "' target='_blank' class='nav-btn'>📍 Google Maps 導航</a>";
-        
-        var marker = L.marker(loc.coords).addTo(map).bindPopup(popupContent);
-        markers.push(marker);
-    });
-
-    // 點擊表格時觸發的函數：平移地圖並打開標記
-    function focusLocation(index) {
-        var targetCoords = locations[index].coords;
-        // 飛越到該點並放大 (zoom level 15)
-        map.flyTo(targetCoords, 15, {
-            animate: true,
-            duration: 1.5 // 動畫時間 1.5 秒
-        });
-        // 打開對應的彈出視窗
-        markers[index].openPopup();
-    }
-</script>
-
-</body>
-</html>
+                    <tr class="day-row"><td colspan="3">Day 6: 7月3日 (五) - 麵包超人與賦歸</td></tr>
+                    <tr><td>10:00</td><td class="clickable" onclick="focusLocation(4)">🦸‍♂️ 麵包超人博物館</td><td>博多 Riverain Mall 5F/6F</td></tr>
+                    <tr><td>12:30</td><td>🍱 準備離開/車上點心</td><td>準備前往還車</td></tr>
+                    <tr><td>13:15</td><td class
